@@ -9,7 +9,7 @@ routes.get("/", (req, res) => {
   return res.json({hello: 'World'})
 })
 
-routes.get("/post", async (req, res) => {
+routes.get("/posts", async (req, res) => {
   const posts = await Post.find()
 
   return res.json(posts)
@@ -31,9 +31,8 @@ routes.post("/posts", multer(multerConfig).single("file"), async (req, res) => {
 })
 
 routes.delete('/posts/:id', async (req, res) => {
-  const post = await Post.findById(req.params.id)
 
-  await post.remove()
+  const post = await Post.findByIdAndDelete(req.params.id)
 
   return res.send()
 })
